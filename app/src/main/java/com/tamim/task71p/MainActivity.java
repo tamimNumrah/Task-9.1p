@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         lostAndFoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i= new Intent(MainActivity.this,CreateAdvertActivity.class);
+                Intent i= new Intent(MainActivity.this,ListActivity.class);
                 startActivity(i);
             }
         });

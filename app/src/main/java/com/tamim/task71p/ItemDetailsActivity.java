@@ -1,51 +1,42 @@
 package com.tamim.task71p;
 
-import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Bundle;
 import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.tamim.task71p.databinding.ActivityItemDetailsBinding;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class ItemDetailsActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityItemDetailsBinding binding;
+    TextView typeTextView;
+    TextView nameTextView;
+    TextView phoneTextView;
+    TextView descriptionTextView;
+    TextView dateTextView;
+    TextView locationTextView;
+    Button removeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityItemDetailsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_item_details);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_item_details);
+        typeTextView = findViewById(R.id.typeTextView);
+        nameTextView = findViewById(R.id.nameTextView);
+        phoneTextView = findViewById(R.id.phoneTextView);
+        descriptionTextView = findViewById(R.id.descriptionTextView);
+        dateTextView = findViewById(R.id.dateTextView);
+        locationTextView = findViewById(R.id.locationTextView);
+        removeButton = findViewById(R.id.removeButton);
+        removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                removeButtonPressed();
             }
         });
     }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_item_details);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    private void removeButtonPressed() {
+        System.out.println("removeButtonPressed");
     }
+
 }
