@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdvertDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "advertDatabase.db";
     private static final String ADVERT_TABLE_NAME = "advert";
@@ -25,7 +28,7 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
         // handle any database schema changes in future versions of your app
     }
 
-    public void insertPerson(Advert advert) {
+    public Boolean insertAdvert(Advert advert) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("id", advert.getId());
@@ -35,8 +38,15 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
         values.put("description", advert.getDescription());
         values.put("date", advert.getDate());
         values.put("location", advert.getLocation());
-        db.insert("advert", null, values);
+        long rowId = db.insert(ADVERT_TABLE_NAME, null, values);
         db.close();
+        if (rowId > -1) {
+            System.out.println("Insert successful. Row ID: " + rowId);
+            return true;
+        } else {
+            System.out.println("Insert failed.");
+            return false;
+        }
     }
 
     public Advert getAdvert(String id) {
@@ -51,15 +61,16 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
         return advert;
     }
 
-    public Advert[] getAllAdverts() {
+    public List<Advert> getAllAdverts() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(ADVERT_TABLE_NAME, null, null, null, null, null, null);
-        Advert[] result = new Advert[cursor.getCount()];
+        List<Advert> result = new ArrayList<>();
         int i = 0;
         while (cursor.moveToNext()) {
-            result[i++] = new Advert(cursor);
+            result.add(new Advert(cursor));
         }
         cursor.close();
+        db.close();
         return result;
     }
 
@@ -68,6 +79,7 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
         String whereClause = "id" + " = ?";
         String[] whereArgs = { id };
         int numRowsDeleted = db.delete(ADVERT_TABLE_NAME, whereClause, whereArgs);
+        db.close();
         if (numRowsDeleted > 0) {
             return true;
         } else {

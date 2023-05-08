@@ -1,8 +1,8 @@
 package com.tamim.task71p;
 
 public enum POST_TYPE {
-    LOST("Lost"),
-    FOUND("Found");
+    Lost("Lost"),
+    Found("Found");
 
     private final String postTypeValue;
 

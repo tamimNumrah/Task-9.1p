@@ -2,9 +2,10 @@ package com.tamim.task71p;
 
 import android.database.Cursor;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Advert {
+public class Advert implements Serializable {
     private String id;
     private POST_TYPE type;
     private String name;

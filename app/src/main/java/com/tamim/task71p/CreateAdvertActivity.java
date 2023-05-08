@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.UUID;
+
 public class CreateAdvertActivity extends AppCompatActivity {
 
     RadioGroup radioGroup;
@@ -25,7 +27,9 @@ public class CreateAdvertActivity extends AppCompatActivity {
     EditText editTextDate;
     EditText editTextLocation;
     Button saveButton;
-    POST_TYPE type = POST_TYPE.LOST;
+    POST_TYPE type = POST_TYPE.Lost;
+
+    AdvertDatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,7 @@ public class CreateAdvertActivity extends AppCompatActivity {
         editTextDate = findViewById(R.id.editTextDate);
         editTextLocation = findViewById(R.id.editTextLocation);
         saveButton = findViewById(R.id.saveButton);
+        db = new AdvertDatabaseHelper(this);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,11 +62,11 @@ public class CreateAdvertActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.radio_1:
                 if (checked)
-                    type = POST_TYPE.LOST;
+                    type = POST_TYPE.Lost;
                 break;
             case R.id.radio_2:
                 if (checked)
-                    type = POST_TYPE.FOUND;
+                    type = POST_TYPE.Found;
                 break;
         }
         refreshSelection();
@@ -69,9 +74,9 @@ public class CreateAdvertActivity extends AppCompatActivity {
     private void refreshSelection() {
         int contentArray;
         switch (type) {
-            case LOST:
+            case Lost:
                 break;
-            case FOUND:
+            case Found:
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
@@ -103,6 +108,19 @@ public class CreateAdvertActivity extends AppCompatActivity {
         if (location.matches("")) {
             showToast("You did not enter location");
             return;
+        }
+
+        Advert advert = new Advert(UUID.randomUUID().toString(), name, type, phone, description, date, location);
+        Boolean success = db.insertAdvert(advert);
+        if (success) {
+            showToast("Advert published successfully");
+            editTextName.setText("");
+            editTextPhone.setText("");
+            editTextDescription.setText("");
+            editTextDate.setText("");
+            editTextLocation.setText("");
+        } else {
+            showToast("Advert could not be stored");
         }
     }
     private void showToast(String message) {
