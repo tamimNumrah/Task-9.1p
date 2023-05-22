@@ -11,12 +11,14 @@ public class MainActivity extends AppCompatActivity {
 
     Button newAdvertButton;
     Button lostAndFoundButton;
+    Button showOnMapButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         newAdvertButton = findViewById(R.id.newAdvertButton);
         lostAndFoundButton = findViewById(R.id.lostAndFoundButton);
+        showOnMapButton = findViewById(R.id.showOnMapButton);
         newAdvertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i= new Intent(MainActivity.this,ListActivity.class);
+                startActivity(i);
+            }
+        });
+        showOnMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i= new Intent(MainActivity.this,MapsActivity.class);
                 startActivity(i);
             }
         });

@@ -19,7 +19,7 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE advert (id TEXT PRIMARY KEY, name TEXT, type TEXT, phone TEXT, description TEXT, date TEXT, location TEXT)";
+        String sql = "CREATE TABLE advert (id TEXT PRIMARY KEY, name TEXT, type TEXT, phone TEXT, description TEXT, date TEXT, lat TEXT, lng TEXT)";
         db.execSQL(sql);
     }
 
@@ -37,7 +37,8 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
         values.put("phone", advert.getPhone());
         values.put("description", advert.getDescription());
         values.put("date", advert.getDate());
-        values.put("location", advert.getLocation());
+        values.put("lat", advert.getLat());
+        values.put("lng", advert.getLng());
         long rowId = db.insert(ADVERT_TABLE_NAME, null, values);
         db.close();
         if (rowId > -1) {
@@ -51,11 +52,11 @@ public class AdvertDatabaseHelper extends SQLiteOpenHelper {
 
     public Advert getAdvert(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(ADVERT_TABLE_NAME, new String[] { "id", "name", "type", "phone", "description", "date", "location" },
+        Cursor cursor = db.query(ADVERT_TABLE_NAME, new String[] { "id", "name", "type", "phone", "description", "date", "lat", "lng" },
                 "id=?", new String[] { id }, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
 
-        Advert advert = new Advert(cursor.getString(0), cursor.getString(1), POST_TYPE.valueOf(cursor.getString(2)), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
+        Advert advert = new Advert(cursor.getString(0), cursor.getString(1), POST_TYPE.valueOf(cursor.getString(2)), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
         cursor.close();
         db.close();
         return advert;

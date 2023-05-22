@@ -39,6 +39,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 removeButtonPressed();
             }
         });
+
         setupData();
         db = new AdvertDatabaseHelper(this);
     }
@@ -49,7 +50,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         phoneTextView.setText(advert.getPhone());
         descriptionTextView.setText(advert.getDescription());
         dateTextView.setText(advert.getDate());
-        locationTextView.setText(advert.getLocation());
+        locationTextView.setText("Lat: "+advert.getLat()+" Long: "+ advert.getLng());
     }
     private void removeButtonPressed() {
         System.out.println("removeButtonPressed");

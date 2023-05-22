@@ -12,14 +12,16 @@ public class Advert implements Serializable {
     private String phone;
     private String description;
     private String date;
-    private String location;
+    private String lat;
+    private String lng;
 
-    public Advert(String id, String name, POST_TYPE type, String phone, String description, String date, String location) {
+    public Advert(String id, String name, POST_TYPE type, String phone, String description, String date, String lat, String lng) {
         this.type = type;
         this.name = name;
         this.phone = phone;
         this.description = description;
-        this.location = location;
+        this.lat = lat;
+        this.lng = lng;
         this.date = date;
         this.id = id;//UUID.randomUUID().toString();
     }
@@ -29,7 +31,8 @@ public class Advert implements Serializable {
         this.name = cursor.getString(1);
         this.phone = cursor.getString(3);
         this.description = cursor.getString(4);
-        this.location = cursor.getString(6);
+        this.lat = cursor.getString(6);
+        this.lng = cursor.getString(7);
         this.date = cursor.getString(5);
         this.id = cursor.getString(0);//UUID.randomUUID().toString();
     }
@@ -46,8 +49,11 @@ public class Advert implements Serializable {
         return description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLat() {
+        return lat;
+    }
+    public String getLng() {
+        return lng;
     }
 
     public String getName() {
@@ -70,8 +76,9 @@ public class Advert implements Serializable {
         this.description = description;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocation(String lat, String lng) {
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public void setName(String name) {

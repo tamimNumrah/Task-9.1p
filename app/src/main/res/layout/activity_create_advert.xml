@@ -92,31 +92,39 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
-    <EditText
-        android:id="@+id/editTextLocation"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
+    <fragment android:id="@+id/autocomplete_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="18dp"
         android:layout_marginRight="10dp"
-        android:ems="10"
-        android:hint="Location"
-        android:inputType="textPersonName"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+    <Button
+        android:id="@+id/getCurrentLocationButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="20dp"
+        android:text="Get current location"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/autocomplete_fragment" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="18dp"
         android:layout_marginRight="20dp"
         android:text="Save"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/getCurrentLocationButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
